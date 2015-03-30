@@ -1,6 +1,6 @@
 # Readable Interface
 
-TODO: Write a gem description
+https://gist.github.com/hyoshida/fb62eaf7fbcd7befda2f
 
 ## Installation
 
@@ -20,7 +20,35 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+class Car
+  extend ReadableInterface
+
+  readable_interface :engine, message: 'Please call `engine` method with any engine class.'
+
+  def start
+    "#{engine.class.name} is started!"
+  end
+end
+
+class AwesomeEngine
+end
+
+class AwesomeCar < Car
+  engine AwesomeEngine.new
+end
+
+awesome_car = AwesomeCar.new
+awesome_car.start
+#=> "AwesomeEngine is started!"
+
+class AwfulCar < Car
+end
+
+awful_car = AwfulCar.new
+awful_car.start
+#=> NotImplementedError: Please call `engine` method with any engine class.
+```
 
 ## Contributing
 
